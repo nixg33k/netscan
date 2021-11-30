@@ -12,7 +12,7 @@ Nodes in Subnet: 256
 
 Sample output.
 
-The script will autodiscover your current networks and/or subnets
+The script will autodiscover your current networks and/or subnets,
 and scan each subnet individually.
 
 
