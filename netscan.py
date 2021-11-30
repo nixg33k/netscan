@@ -77,7 +77,7 @@ def get_address_in_network():
             print ("IPADDR: %s" % addr)
             print ("NETMASK: %s" % netmask)
             print ("CIDR: %s " % cidr)
-            print ("Nodes in Subnet: %s" % len(allhosts))
+            print ("Nodes in Subnet: %s" % (len(allhosts)-2))
             print()
 
             nm = nmap.PortScanner()

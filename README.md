@@ -12,7 +12,7 @@
     CIDR: 192.168.104.3/24
     Nodes in Subnet: 256
 
-    Sample output ^^^^
+    Sample output ^^^^  of one of your subnets and interface.
 
     The script will autodiscover your current network adapters and/or subnets,
     and scan each subnet individually. Add the -p switch to run a port scan per host.
