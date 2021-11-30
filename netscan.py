@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import importlib.util
 import logging
 import netaddr
 import netifaces
@@ -13,7 +14,6 @@ import socket
 import subprocess
 import sys
 import time
-
 import pkg_resources
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
@@ -24,19 +24,30 @@ global addr, netmask, cidr, allhosts
 
 
 def chkmodules():
-    required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging', 'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan'}
-    installed = {pkg.key for pkg in pkg_resources.working_set}
-    missing = required - installed
+    required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging',
+                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan', 'chubby'}
+    zmodules = []
 
-    if missing:
-        # python = sys.executable
-        # "%s, %s" % (fqdn, curip))
-        print("Modules are missing... %s" % missing)
-        print("Please install before running netscan.")
+    for module in required:
+        exists = importlib.util.find_spec(module) is not None
+        if exists is True:
+            print("module: %s installed" % module)
+        else:
+            print("module: %s not installed" % module)
+            zmodules.append(module)
+
+    is_zmodules_not_empty = bool(zmodules)
+
+    if is_zmodules_not_empty:
+        print("These Python modules must first be installed: %s" % zmodules)
         sys.exit(13)
-        # subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
-    else:
-        print("Python modules installed: %s" % installed)
+
+    # python = sys.executable
+    # "%s, %s" % (fqdn, curip))
+    # print("Modules are missing... %s" % missing)
+    # print("Please install before running netscan.")
+    # sys.exit(13)
+    # subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
 
 
 def OpenFile():
@@ -182,7 +193,7 @@ def get_address_in_network():
 def main():
     astarttime = time.time()
 
-    # chkmodules()
+    chkmodules()
 
     OpenFile()
     OpenFileLimit()
