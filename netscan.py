@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import req_mods.py
+
 import argparse
 import importlib.util
 import logging
@@ -14,7 +16,6 @@ import socket
 import subprocess
 import sys
 import time
-
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
@@ -192,9 +193,7 @@ def get_address_in_network():
 
 def main():
     astarttime = time.time()
-
-    chkmodules()
-
+    # chkmodules()
     OpenFile()
     OpenFileLimit()
     CurDateAndTime()
