@@ -14,7 +14,7 @@ import socket
 import subprocess
 import sys
 import time
-import pkg_resources
+
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
@@ -25,13 +25,17 @@ global addr, netmask, cidr, allhosts
 
 def chkmodules():
     required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging',
-                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan', 'chubby'}
+                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan'}
+
     zmodules = []
+    mods_installed = []
+    req_count = len(required)
 
     for module in required:
         exists = importlib.util.find_spec(module) is not None
-        if exists is True:
-            print("module: %s installed" % module)
+        # print("req_count: %d" % req_count)
+        if (exists is True) and (req_count == 14):
+            mods_installed.append(module)
         else:
             print("module: %s not installed" % module)
             zmodules.append(module)
@@ -42,13 +46,9 @@ def chkmodules():
         print("These Python modules must first be installed: %s" % zmodules)
         sys.exit(13)
 
-    # python = sys.executable
-    # "%s, %s" % (fqdn, curip))
-    # print("Modules are missing... %s" % missing)
-    # print("Please install before running netscan.")
-    # sys.exit(13)
-    # subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
-
+    if req_count == 14:
+        print("All required modules are installed!")
+        # print("All required modules are installed: \n%s" % required)
 
 def OpenFile():
     global f
