@@ -70,14 +70,14 @@ def get_address_in_network():
             netmask = addresses[netifaces.AF_INET][0]['netmask']
             cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
 
-            print ("using Current interface: %s" % iface)
+            print("using Current interface: %s" % iface)
 
             allhosts = IPNetwork(cidr)
 
-            print ("IPADDR: %s" % addr)
-            print ("NETMASK: %s" % netmask)
-            print ("CIDR: %s " % cidr)
-            print ("Nodes in Subnet: %s" % (len(allhosts)-2))
+            print("IPADDR: %s" % addr)
+            print("NETMASK: %s" % netmask)
+            print("CIDR: %s " % cidr)
+            print("Nodes in Subnet: %s" % (len(allhosts)-2))
             print()
 
             nm = nmap.PortScanner()
@@ -143,8 +143,8 @@ def get_address_in_network():
                         WriteFile(strscan)
 
 
-            print ("Nodes in Subnet: %d" % n)
-            print ("Arp scan in %f seconds...." % (totaltime))
+            print("Nodes in Subnet: %d" % n)
+            print("Arp scan in %f seconds...." % (totaltime))
 
 
 def main():
