@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import req_mods.py
-
+import req_mods
 import argparse
 import importlib.util
 import logging

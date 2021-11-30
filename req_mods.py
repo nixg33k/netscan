@@ -1,25 +1,19 @@
 import sys
 
-
-def ensure_enviroment():
-    try:
-        import argparse
-        import importlib.util
-        import logging
-        import netaddr
-        import netifaces
-        import nmap
-        import os
-        import pprint
-        import re
-        import resource
-        import socket
-        import subprocess
-        import sys
-        import time
-    except ModuleNotFoundError or ImportError as ee:
-        print('This script can only be run if the modules are installed : {0}'.format(ee.msg), file=sys.stderr)
-        exit(13)
+old_excepthook = sys.excepthook
 
 
-ensure_enviroment()
+def ensure_enviroment_excepthook(exceptionType, exception, traceback):
+    required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging',
+                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan'}
+
+    if exceptionType == ModuleNotFoundError or exceptionType == ImportError:
+        print('This script can only be run if all below Python modules are installed.')
+        print("Please install the following Python Modules")
+        # print('This script can only be run if all modules are installed : {0}'.format(exception.msg), file=sys.stderr)
+        print(*required, sep=", ")
+        exit(1)
+    return old_excepthook(exceptionType, exception, traceback)
+
+
+sys.excepthook = ensure_enviroment_excepthook
