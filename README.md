@@ -17,7 +17,8 @@
     The script will autodiscover your current network adapters and/or subnets,
     and scan each subnet individually. Add the -p switch to run a port scan per host.
 
-    To run this just run ./netscan or ./netscan -p
+    Grab this from Git..  git clone https://github.com/nixg33k/netscan.git
+    cd to netscan, then just run ./netscan or ./netscan -p
     This can run as a non-root user, but you will see more details if run this as root.
 
 
