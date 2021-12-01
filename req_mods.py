@@ -5,7 +5,7 @@ old_excepthook = sys.excepthook
 
 def ensure_enviroment_excepthook(exceptionType, exception, traceback):
     required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging',
-                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan'}
+                'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan', 'fluffy'}
 
     if exceptionType == ModuleNotFoundError or exceptionType == ImportError:
         print('This script can only be run if all below Python modules are installed.')
