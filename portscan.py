@@ -4,6 +4,7 @@ import socket, threading
 from datetime import datetime
 from queue import Queue
 
+
 def TCP_connect(ip, port_number, delay, output):
     TCPsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     TCPsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -16,11 +17,11 @@ def TCP_connect(ip, port_number, delay, output):
 
     TCPsock.close()
 
-def scan_ports(host_ip, delay):
 
+def scan_ports(host_ip, delay):
     print()
-    threads = []        # To run TCP_connect concurrently
-    output = {}         # For printing purposes
+    threads = []  # To run TCP_connect concurrently
+    output = {}  # For printing purposes
     count = 0
     # Check what time the scan started
     t1 = datetime.now()
@@ -44,12 +45,11 @@ def scan_ports(host_ip, delay):
         if output[i] == 'Listening':
             print(str(i) + ': ' + str(output[i]))
             count += 1
-#            return(str(i) + ': ' + str(output[i]) + '\n')
+    #            return(str(i) + ': ' + str(output[i]) + '\n')
 
-
-    print()            
+    print()
     print('Count of ports open: %s - %s' % (count, str(host_ip)))
-
+    print("========================================================================")
     # Checking the time again
     t2 = datetime.now()
 
@@ -57,13 +57,15 @@ def scan_ports(host_ip, delay):
     total = t2 - t1
 
     # Printing the information to screen
-    print('Port Scanning Completed in: ' , (total))
+    print('Port Scanning Completed in: ', (total))
     print()
+
 
 def main():
     host_ip = input("Enter host IP: ")
     delay = int(input("How many seconds the socket is going to wait until timeout: "))
     scan_ports(host_ip, delay)
+
 
 if __name__ == "__main__":
     main()
