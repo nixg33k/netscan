@@ -14,6 +14,10 @@
 
     Sample output ^^^^  of one of your subnets and interface.
 
+    Note: This script requires nmap to be installed
+        Debian/Ubuntu apt install nmap
+        Redhat/Fedora yum install nmap
+
     The script will autodiscover your current network adapters and/or subnets,
     and scan each subnet individually. Add the -p switch to run a port scan per host.
 
