@@ -106,6 +106,9 @@ def CurDateAndTime():
 def get_address_in_network():
     global addr, netmask, cidr, allhosts
     network = netaddr.IPNetwork(ip)
+    print("This host has %d network adapters" % len(netifaces.interfaces()))
+    print("Adapter lo is ignored...")
+    print(netifaces.interfaces())
     for iface in netifaces.interfaces():
         if iface == 'lo':
             continue
@@ -117,6 +120,7 @@ def get_address_in_network():
             netmask = addresses[netifaces.AF_INET][0]['netmask']
             cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
 
+            print("==========================================================")
             print("using Current interface: %s" % iface)
 
             allhosts = IPNetwork(cidr)
@@ -208,7 +212,6 @@ def chkargs2():
 
 
 def main():
-
     chkargs2()
     astarttime = time.time()
     # chkmodules()
