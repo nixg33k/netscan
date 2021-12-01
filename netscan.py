@@ -50,6 +50,7 @@ def chkmodules():
         print("All required modules are installed!")
         # print("All required modules are installed: \n%s" % required)
 
+
 def OpenFile():
     global f
     f = open('portscan_output.txt', 'at+')
@@ -187,10 +188,28 @@ def get_address_in_network():
                         WriteFile(strscan)
 
             print("Nodes in Subnet: %d" % n)
-            print("Arp scan in %f seconds...." % (totaltime))
+            print("Arp scan in %f seconds...." % totaltime)
+
+
+def chkargs():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', action='store_true', help='scan ports')
+    parser.add_argument('-f', action='store_true', help='write output to a file')
+    results = parser.parse_args()
+    exit(0)
+
+
+def chkargs2():
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "-h":
+            chkargs()
+        elif sys.argv[1] == "-p":
+            print("\nScanning ports now...")
 
 
 def main():
+
+    chkargs2()
     astarttime = time.time()
     # chkmodules()
     OpenFile()
