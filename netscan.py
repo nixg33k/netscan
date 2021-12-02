@@ -108,20 +108,26 @@ def get_address_in_network():
     network = netaddr.IPNetwork(ip)
     interfaces = netifaces.interfaces()
     interfaces.remove('lo')
-    print(type(interfaces))
+    # get data type for interfaces
+    # print(type(interfaces))
     print(interfaces)
     print("This host has %d configured network adapters" % len(interfaces))
-    print("Adapter lo is removed and ignored...")
+    print("Adapter 'lo' is removed and ignored...")
     for iface in interfaces:
         if iface == 'lo':
             continue
 
         addresses = netifaces.ifaddresses(iface)
+    #   print(addresses)
 
         if network.version == 4 and netifaces.AF_INET in addresses:
             addr = addresses[netifaces.AF_INET][0]['addr']
             netmask = addresses[netifaces.AF_INET][0]['netmask']
             cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
+        # elif network.version == 6 and netifaces.AF_INET6 in addresses:
+        #    addr = addresses[netifaces.AF_INET6][0]['addr']
+        #    netmask = addresses[netifaces.AF_INET6][0]['netmask']
+        #    cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
 
             print("==========================================================")
             print("using Current interface: %s" % iface)

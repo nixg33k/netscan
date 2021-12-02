@@ -45,7 +45,9 @@ def scan_ports(host_ip, delay):
         if output[i] == 'Listening':
             print(str(i) + ': ' + str(output[i]))
             count += 1
-    #            return(str(i) + ': ' + str(output[i]) + '\n')
+
+    if count == 0:
+        print("No open ports")
 
     print()
     print('Count of ports open: %s - %s' % (count, str(host_ip)))
