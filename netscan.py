@@ -88,7 +88,7 @@ def GetIPAndHostName():
     fqdn = socket.getfqdn()
     global curip
     curip = socket.gethostbyname(fqdn)
-    print("%s, %s" % (fqdn, curip))
+    print("FQDN: %s, IP: %s" % (fqdn, curip))
 
 
 def GetSubNet():
