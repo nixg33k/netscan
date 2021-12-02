@@ -29,6 +29,6 @@
 
     This script runs very fast. On my home lab the host I run this on has 5 configured
     Network adapters and it runs this in 18.5 seconds.  With portscan it takes about
-    80 seconds to complete.
+    57 seconds to complete.
 
 
