@@ -15,6 +15,7 @@ import socket
 import subprocess
 import sys
 import time
+import dns
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
@@ -165,16 +166,26 @@ def get_address_in_network():
                     splitvendor = str(v['vendor'])
                     zhost = str(splithost.split("'")[7:8])
                     newzhost = re.sub('[\[\]\']', '', zhost)
-                    # print("newzhost: %s" % newzhost)
+                    ZipAddr = splitip
+                    try:
+                        name, alias, addresslist = socket.gethostbyaddr(ZipAddr)
+
+                    except:
+                        name = "-NULL-"
+
+                    # print(name)
+                    # if len(name) != 0:
+                    #    print("hostnamelookup: %s" % str(name))
+
                     # print("zhost: %s" % zhost)
                     # print("v.hostname: %s" % v.hostname())
 
-                    if len(newzhost) <= 4:
+                    if len(name) == 0:
                         Znewzhost = 'NULL'
                     else:
-                        Znewzhost = v.hostname()
+                        Znewzhost = name
 
-                    ZipAddr = splitip
+                    # ZipAddr = splitip
                     zvendor1 = str(splitvendor.split("'")[1:2])
                     zvendor2 = str(splitvendor.split("'")[3:4])
                     newzvendor1 = re.sub('[\[\]\'\{\}]', '', zvendor1)
