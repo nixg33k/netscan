@@ -106,10 +106,13 @@ def CurDateAndTime():
 def get_address_in_network():
     global addr, netmask, cidr, allhosts
     network = netaddr.IPNetwork(ip)
-    print("This host has %d configured network adapters" % len(netifaces.interfaces()))
-    print("Adapter lo is ignored...")
-    print(netifaces.interfaces())
-    for iface in netifaces.interfaces():
+    interfaces = netifaces.interfaces()
+    interfaces.remove('lo')
+    print(type(interfaces))
+    print(interfaces)
+    print("This host has %d configured network adapters" % len(interfaces))
+    print("Adapter lo is removed and ignored...")
+    for iface in interfaces:
         if iface == 'lo':
             continue
 
