@@ -19,12 +19,16 @@
         Redhat/Fedora yum install nmap
 
 
-    The script will autodiscover your current configured network adapters and/or subnets,
+    The script will autodiscover your current configured (UP) network adapters and/or subnets,
     and scan each subnet individually. Add the -p switch to run a port scan per host.
     Note: Only network adapters with a valid IP address will be scanned.
 
     Grab this from GitHub.com  git clone https://github.com/nixg33k/netscan.git
     cd to netscan, then just run ./netscan or ./netscan -p to scan ports as well.
     This can run as a non-root user, but you will see more details if run this as root.
+
+    This script runs very fast. On my home lab the host I run this on has 5 configured
+    Network adapters and it runs this in 18.5 seconds.  With portscan it takes about
+    80 seconds to complete.
 
 
