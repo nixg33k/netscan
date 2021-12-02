@@ -165,11 +165,14 @@ def get_address_in_network():
                     splitvendor = str(v['vendor'])
                     zhost = str(splithost.split("'")[7:8])
                     newzhost = re.sub('[\[\]\']', '', zhost)
+                    # print("newzhost: %s" % newzhost)
+                    # print("zhost: %s" % zhost)
+                    # print("v.hostname: %s" % v.hostname())
 
                     if len(newzhost) <= 4:
                         Znewzhost = 'NULL'
                     else:
-                        Znewzhost = newzhost
+                        Znewzhost = v.hostname()
 
                     ZipAddr = splitip
                     zvendor1 = str(splitvendor.split("'")[1:2])
