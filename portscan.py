@@ -50,7 +50,7 @@ def scan_ports(host_ip, delay):
         print("No open ports")
 
     print()
-    print('Count of ports open: %s - %s' % (count, str(host_ip)))
+    print('Count of ports open: %d - %s' % (count, str(host_ip)))
     # Checking the time again
     t2 = datetime.now()
 

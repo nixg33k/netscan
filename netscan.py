@@ -110,9 +110,10 @@ def get_address_in_network():
     interfaces.remove('lo')
     # get data type for interfaces
     # print(type(interfaces))
-    print(interfaces)
-    print("This host has %d configured network adapters" % len(interfaces))
+    print("This host has %d configured (UP) network adapters" % len(interfaces))
+    print("If the nic does not have an IP address it will not be scanned.")
     print("Adapter 'lo' is removed and ignored...")
+    print(interfaces)
     for iface in interfaces:
         if iface == 'lo':
             continue
