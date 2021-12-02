@@ -153,9 +153,9 @@ def get_address_in_network():
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
-            print('-------------------------------------------------------------------------------')
-            print('Hostname/FQDN   ::  IP Address  ::    Mac    ::     Vendor')
-            print('-------------------------------------------------------------------------------')
+            print('---------------------------------------------------------------------------------------------------------------------------------------')
+            print("%40s :: %20s :: %28s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
+            print('---------------------------------------------------------------------------------------------------------------------------------------')
             print()
             for k, v in a['scan'].items():
                 if str(v['status']['state']) == 'up':
@@ -201,7 +201,7 @@ def get_address_in_network():
                     else:
                         Znewzvendor2 = 'NULL'
 
-                    print("%s :: %s :: %s :: %s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
+                    print("%40s :: %20s :: %28s :: %32s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
                     parser = argparse.ArgumentParser()
                     parser.add_argument('-p', action='store_true', help='scan ports')
                     parser.add_argument('-f', action='store_true', help='write output to a file')
