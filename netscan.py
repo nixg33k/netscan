@@ -214,7 +214,8 @@ def get_address_in_network():
                         strscan = str(scan_ports(ZipAddr, 1))
                         # print(strscan)
                         WriteFile(strscan)
-
+            print()
+            print()
             print("Nodes in Subnet: %d" % n)
             print("Arp scan in %f seconds...." % totaltime)
 
