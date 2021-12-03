@@ -15,7 +15,7 @@ import socket
 import subprocess
 import sys
 import time
-import dns
+
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
@@ -131,7 +131,7 @@ def get_address_in_network():
         #    netmask = addresses[netifaces.AF_INET6][0]['netmask']
         #    cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
 
-            print("==========================================================")
+            # print("==========================================================")
             print("using Current interface: %s" % iface)
 
             allhosts = IPNetwork(cidr)
