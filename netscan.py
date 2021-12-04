@@ -112,7 +112,7 @@ def OpenFileLimit():
     nulimitmax = int(ulimitmax)
     global soft, hard
     soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
-    print(soft, hard)
+    print("Current settings - Soft: %s, Hard: %s" % (soft, hard))
     # print(soft,hard)
     # print(nulimitmax)
 
