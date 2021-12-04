@@ -130,7 +130,7 @@ def OpenFileLimit():
             #    print(subprocess.getoutput('ulimit -Sn'))
             # else:
 
-            resource.setrlimit(resource.RLIMIT_OFILE, (30000, 30000))
+            resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
             # print('Please set open files too 30000.. ulimit -Sn 30000')
             # os.popen("bash -c ulimit -Sn 30000")
             # print(subprocess.getoutput('ulimit -Sn'))
