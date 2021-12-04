@@ -15,7 +15,7 @@ import socket
 import subprocess
 import sys
 import time
-
+import distro
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
@@ -77,7 +77,12 @@ def OpenFileLimit():
         if nulimitmax < 20000:
             print()
             print("Open File limit too small, setting Open Files limit to 20000")
-            resource.setrlimit(resource.RLIMIT_OFILE, (20000, hard))
+            getdistro = distro.id()
+            getdistro = getdistro.replace("'", "")
+            if getdistro == 'centos':
+                os.popen("bash -c ulimit -n 20000")
+            else:
+                resource.setrlimit(resource.RLIMIT_OFILE, (20000, hard))
             # print('Please set open files too 20000.. ulimit -Sn 20000')
             # os.popen("bash -c ulimit -Sn 20000")
             # print(subprocess.getoutput('ulimit -Sn'))
@@ -120,16 +125,16 @@ def get_address_in_network():
             continue
 
         addresses = netifaces.ifaddresses(iface)
-    #   print(addresses)
+        #   print(addresses)
 
         if network.version == 4 and netifaces.AF_INET in addresses:
             addr = addresses[netifaces.AF_INET][0]['addr']
             netmask = addresses[netifaces.AF_INET][0]['netmask']
             cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
-        # elif network.version == 6 and netifaces.AF_INET6 in addresses:
-        #    addr = addresses[netifaces.AF_INET6][0]['addr']
-        #    netmask = addresses[netifaces.AF_INET6][0]['netmask']
-        #    cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
+            # elif network.version == 6 and netifaces.AF_INET6 in addresses:
+            #    addr = addresses[netifaces.AF_INET6][0]['addr']
+            #    netmask = addresses[netifaces.AF_INET6][0]['netmask']
+            #    cidr = netaddr.IPNetwork("%s/%s" % (addr, netmask))
 
             # print("==========================================================")
             print("using Current interface: %s" % iface)
@@ -153,9 +158,11 @@ def get_address_in_network():
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
-            print('---------------------------------------------------------------------------------------------------------------------------------------')
+            print(
+                '---------------------------------------------------------------------------------------------------------------------------------------')
             print("%40s :: %20s :: %20s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
-            print('---------------------------------------------------------------------------------------------------------------------------------------')
+            print(
+                '---------------------------------------------------------------------------------------------------------------------------------------')
             print()
             for k, v in a['scan'].items():
                 if str(v['status']['state']) == 'up':
