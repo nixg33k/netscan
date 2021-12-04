@@ -116,17 +116,17 @@ def OpenFileLimit():
     # print(nulimitmax)
 
     if os.name.split()[0] == 'posix':
-        if nulimitmax < 20000:
+        if nulimitmax < 30000:
             print()
-            print("Open File limit too small, setting Open Files limit to 20000")
+            print("Open File limit too small, setting Open Files limit to 30000")
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
             if getdistro == 'centos':
-                os.popen("bash -c ulimit -n 20000")
+                os.popen("bash -c ulimit -n 30000")
             else:
-                resource.setrlimit(resource.RLIMIT_OFILE, (20000, hard))
-            # print('Please set open files too 20000.. ulimit -Sn 20000')
-            # os.popen("bash -c ulimit -Sn 20000")
+                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+            # print('Please set open files too 30000.. ulimit -Sn 30000')
+            # os.popen("bash -c ulimit -Sn 30000")
             # print(subprocess.getoutput('ulimit -Sn'))
             print()
             # raise SystemExit()
@@ -316,7 +316,7 @@ def main():
     print()
     print("Total time: %f seconds" % atotaltime)
     print()
-    if soft < 20000:
+    if soft < 30000:
         print("reverting Open files to original setting %d" % soft)
         resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
     # print(subprocess.getoutput('ulimit -Sn'))
