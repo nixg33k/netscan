@@ -20,6 +20,7 @@ import distro
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
+from ipaddress import IPv4Address, IPv4Network
 
 global addr, netmask, cidr, allhosts
 
@@ -139,12 +140,17 @@ def get_address_in_network():
             # print("==========================================================")
             print("using Current interface: %s" % iface)
 
+            ipaddr = addr
+            ipaddr = ipaddr.split(".")
+            ipaddr = [int(1) for i in ipaddr]
+
             allhosts = IPNetwork(cidr)
 
             print("IPADDR: %s" % addr)
             print("NETMASK: %s" % netmask)
             print("CIDR: %s " % cidr)
-            print("Nodes in Subnet: %s" % (len(allhosts) - 2))
+
+            # print("Network is Class: %s" % theclass)
             print()
 
             nm = nmap.PortScanner()
