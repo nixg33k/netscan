@@ -38,15 +38,15 @@ def seperate(ipaddr2, className):
 
 
 # driver's code
-# if __name__ == "__main__":
-#    ipaddr = "192.226.12.11"
-#    ipaddr = ipaddr.split(".")
-#    ipaddr = [int(i) for i in ipaddr]
+ if __name__ == "__main__":
+    ipaddr = "192.226.12.11"
+    ipaddr = ipaddr.split(".")
+    ipaddr = [int(i) for i in ipaddr]
 
 #    getting the network class
-#    networkClass = findClass(ipaddr)
-#    print("Given ipaddraddress belongs to class : ", networkClass)
+    networkClass = findClass(ipaddr)
+    print("Given ipaddraddress belongs to class : ", networkClass)
 
 #    printing network and host id
-#    ipaddr = [str(i) for i in ipaddr]
-#    seperate(ipaddr, networkClass)
+    ipaddr = [str(i) for i in ipaddr]
+    seperate(ipaddr, networkClass)
