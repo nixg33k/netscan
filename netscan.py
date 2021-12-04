@@ -122,6 +122,7 @@ def OpenFileLimit():
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
             if getdistro == 'centos':
+                print("Host OS is CentOS")
                 os.popen("bash -c ulimit -n 30000")
             else:
                 resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
