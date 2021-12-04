@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # This script runs on Python 3
-import socket, threading
+import socket
+import threading
 from datetime import datetime
-from queue import Queue
 
 
 def TCP_connect(ip, port_number, delay, output):
@@ -24,7 +24,7 @@ def scan_ports(host_ip, delay):
     output = {}  # For printing purposes
     count = 0
     # Check what time the scan started
-    t1 = datetime.now()
+    t1 = datetime.now().second
 
     # Spawning threads to scan ports
     for i in range(10000):
@@ -52,15 +52,15 @@ def scan_ports(host_ip, delay):
     print()
     print('Count of ports open: %d - %s' % (count, str(host_ip)))
     # Checking the time again
-    t2 = datetime.now()
+    t2 = datetime.now().second
 
     # Calculates the difference of time, to see how long it took to run the script
     total = t2 - t1
 
     # Printing the information to screen
-    print('Port Scanning Completed in: ', (total))
+    print('Port Scanning Completed in: %d second(s)' % total)
     print()
-    print("===============================================================================================================================================")
+    print("============================================================================================================================================")
 
 
 def main():
