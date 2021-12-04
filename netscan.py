@@ -140,10 +140,6 @@ def get_address_in_network():
             # print("==========================================================")
             print("using Current interface: %s" % iface)
 
-            ipaddr = addr
-            ipaddr = ipaddr.split(".")
-            ipaddr = [int(1) for i in ipaddr]
-
             allhosts = IPNetwork(cidr)
 
             print("IPADDR: %s" % addr)
