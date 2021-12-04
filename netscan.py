@@ -17,6 +17,8 @@ import sys
 import time
 import distro
 
+import getClass
+
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
@@ -145,6 +147,19 @@ def get_address_in_network():
             print("IPADDR: %s" % addr)
             print("NETMASK: %s" % netmask)
             print("CIDR: %s " % cidr)
+
+            ipaddr = addr
+            ipaddr = ipaddr.split(".")
+            ipaddr = [int(i) for i in ipaddr]
+
+            # getting the network class
+            networkClass = findClass(ipaddr)
+            print("Given ipaddraddress belongs to class : ", networkClass)
+
+            # printing network and host id
+            ipaddr = [str(i) for i in ipaddr]
+            seperate(ipaddr, networkClass)
+
 
             # print("Network is Class: %s" % theclass)
             print()
