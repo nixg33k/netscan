@@ -80,8 +80,7 @@ def OpenFileLimit():
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
             if getdistro == 'centos':
-                resource.setrlimit(resource.RLIMIT_OFILE, (20000, soft))
-                # os.popen("bash -c ulimit -n 20000")
+                os.popen("bash -c ulimit -n 20000")
             else:
                 resource.setrlimit(resource.RLIMIT_OFILE, (20000, hard))
             # print('Please set open files too 20000.. ulimit -Sn 20000')
