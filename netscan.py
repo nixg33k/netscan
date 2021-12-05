@@ -118,7 +118,7 @@ def OpenFileLimit():
     if os.name.split()[0] == 'posix':
         if nulimitmax < 30000:
             print()
-            print("Open File limit too small, setting Open Files limit to 30000")
+            print("Soft Open File limit too small, setting Open Files limit to 30000")
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
             #
