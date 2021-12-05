@@ -65,7 +65,6 @@ def seperate(ipaddr2, className):
         print("In this Class, ipaddraddress is not divided into Network and Host ID")
 
 
-
 def chkmodules():
     required = {'socket', 'time', 'os', 'netifaces', 'netaddr', 'nmap', 'pprint', 're', 'subprocess', 'logging',
                 'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan'}
@@ -307,6 +306,7 @@ def chkargs2():
 
 
 def main():
+    sys.excepthook = req_mods.ensure_enviroment_excepthook
     chkargs2()
     astarttime = time.time()
     # chkmodules()
