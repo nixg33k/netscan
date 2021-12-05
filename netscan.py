@@ -121,7 +121,7 @@ def OpenFileLimit():
             print("Open File limit too small, setting Open Files limit to 30000")
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
-            print(subprocess.getoutput('ulimit -Sn'))
+            # print(subprocess.getoutput('ulimit -Sn'))
 
             if getdistro == 'centos':
                 print("Host OS is CentOS")
