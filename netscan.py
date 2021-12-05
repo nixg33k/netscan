@@ -126,7 +126,7 @@ def OpenFileLimit():
             if getdistro == 'centos':
                 print("Host OS is CentOS")
                 resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
-                print(subprocess.getoutput('ulimit -Sn'))
+                print("Open File now set to %d" % subprocess.getoutput('ulimit -Sn'))
 
             if getdistro == 'ubuntu':
                 print("Host OS is Ubuntu")
