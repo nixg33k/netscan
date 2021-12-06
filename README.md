@@ -28,7 +28,7 @@
     This can run as a non-root user, but you will see more details if run this as root.
 
     This script runs very fast. On my home lab the host I run this on has 5 configured
-    Network adapters and it runs this in 18.5 seconds.  With portscan it takes about
+    Network adapters and it runs this in 4.18 seconds or less.  With portscan it takes about
     57 seconds to complete.
 
 
