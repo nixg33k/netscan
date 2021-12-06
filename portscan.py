@@ -4,8 +4,7 @@ import socket
 import threading
 import time
 
-from datetime import timezone, datetime, timedelta
-import datetime
+from datetime import datetime
 
 
 def TCP_connect(ip, port_number, delay, output):
@@ -64,17 +63,18 @@ def scan_ports(host_ip, delay):
 
     # Calculates the difference of time, to see how long it took to run the script
     # ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
-    ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds
+    ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
 
     newtotal = newt2 - newt1
 
     # Printing the information to screen
 
-    print('Port Scanning Completed in: %s milliseconds(s)' % total)
-    print('Port Scanning Completed in: %d milliseconds(s)' % ms)
-    print('Port Scanning Completed in: %d second(s)' % newtotal)
+    # print('Port Scanning Completed in: %s milliseconds(s)' % total)
+    print('Port Scanning Completed in: %f milliseconds(s)' % ms)
+    print('Port Scanning Completed in: %f second(s)' % newtotal)
     print()
-    print("============================================================================================================================================")
+    print(
+        "============================================================================================================================================")
 
 
 def main():
