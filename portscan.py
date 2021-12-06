@@ -2,6 +2,7 @@
 # This script runs on Python 3
 import socket
 import threading
+import time
 from datetime import datetime
 
 
@@ -24,7 +25,9 @@ def scan_ports(host_ip, delay):
     output = {}  # For printing purposes
     count = 0
     # Check what time the scan started
-    t1 = datetime.now().second
+    t1 = datetime.now()
+
+    newt1 = time.time()
 
     # Spawning threads to scan ports
     for i in range(10000):
@@ -52,13 +55,21 @@ def scan_ports(host_ip, delay):
     print()
     print('Count of ports open: %d - %s' % (count, str(host_ip)))
     # Checking the time again
-    t2 = datetime.now().second
+    t2 = datetime.now()
 
-    # Calculates the difference of time, to see how long it took to run the script
+    newt2 = time.time()
     total = t2 - t1
 
+    # Calculates the difference of time, to see how long it took to run the script
+    ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
+
+    newtotal = newt2 - newt1
+
     # Printing the information to screen
-    print('Port Scanning Completed in: %d second(s)' % total)
+
+    print('Port Scanning Completed in: %s microsecond(s)' % total)
+    print('Port Scanning Completed in: %d microsecond(s)' % ms)
+    print('Port Scanning Completed in: %d second(s)' % newtotal)
     print()
     print("============================================================================================================================================")
 
