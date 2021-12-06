@@ -62,13 +62,14 @@ def scan_ports(host_ip, delay):
 
     # Calculates the difference of time, to see how long it took to run the script
     # ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
+    ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds
 
     newtotal = newt2 - newt1
 
     # Printing the information to screen
 
     print('Port Scanning Completed in: %s milliseconds(s)' % total)
-    # print('Port Scanning Completed in: %d milliseconds(s)' % ms)
+    print('Port Scanning Completed in: %d milliseconds(s)' % ms)
     print('Port Scanning Completed in: %d second(s)' % newtotal)
     print()
     print("============================================================================================================================================")
