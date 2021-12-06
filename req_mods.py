@@ -8,6 +8,7 @@ def ensure_enviroment_excepthook(exceptionType, exception, traceback):
                 'argparse', 'resource', 'pkg_resources', 'netaddr', 'portscan', 'distro'}
 
     if exceptionType == ImportError or exceptionType == ModuleNotFoundError:
+        print("ExceptionType: %s " % exceptionType)
         print('This script can only be run if all below Python modules are installed.')
         print("Please install the following Python Modules")
         # print('This script can only be run if all modules are installed : {0}'.format(exception.msg), file=sys.stderr)
