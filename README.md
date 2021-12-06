@@ -1,5 +1,8 @@
 # netscan
 
+    git clone https://github.com/nixg33k/netscan.git
+
+
     Open File limit too small, setting Open Files limit to 20000.
     Note: This script requires Open File limit to be at least 20000 or larger, 
     the script will temporarily set this and revert it back at the end.
