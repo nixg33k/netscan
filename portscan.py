@@ -67,8 +67,8 @@ def scan_ports(host_ip, delay):
 
     # Printing the information to screen
 
-    print('Port Scanning Completed in: %s microsecond(s)' % total)
-    print('Port Scanning Completed in: %d microsecond(s)' % ms)
+    print('Port Scanning Completed in: %s milliseconds(s)' % total)
+    print('Port Scanning Completed in: %d milliseconds(s)' % ms)
     print('Port Scanning Completed in: %d second(s)' % newtotal)
     print()
     print("============================================================================================================================================")
