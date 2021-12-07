@@ -354,9 +354,9 @@ def main():
             print("reverting hard Open files to original setting %d" % hard)
             resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
 
-        if soft2 == 30000 or hard2 == 30000:
-            soft4, hard4 = resource.getrlimit(resource.RLIMIT_NOFILE)
-            print("Reverting Open File settings - Soft: %s, Hard: %s" % (soft4, hard4))
+    if soft2 == 30000 or hard2 == 30000:
+        soft4, hard4 = resource.getrlimit(resource.RLIMIT_NOFILE)
+        print("Reverting Open File settings - Soft: %s, Hard: %s" % (soft4, hard4))
 
 
 main()
