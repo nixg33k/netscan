@@ -122,6 +122,7 @@ def OpenFileLimit():
             getdistro = distro.id()
             getdistro = getdistro.replace("'", "")
             #
+
             # print(subprocess.getoutput('ulimit -Sn'))
             print("Current Open File settings - Soft: %s, Hard: %s" % (soft, hard))
             print("Linux Distro: %s" % getdistro)
