@@ -317,6 +317,7 @@ def chkargs2():
 def main():
     sys.excepthook = req_mods.ensure_enviroment_excepthook
     chkargs2()
+    soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
     astarttime = time.time()
     # chkmodules()
     OpenFile()
