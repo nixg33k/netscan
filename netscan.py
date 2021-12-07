@@ -131,10 +131,11 @@ def OpenFileLimit():
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
             else:
                 print("Not CentOS!")
-                subprocess.getoutput('ulimit -Sn 30000')
-                subprocess.getoutput('ulimit -Sn')
-                subprocess.getoutput('ulimit -Hn')
+                softnow = subprocess.getoutput('ulimit -Sn 30000')
+                nowsoft = subprocess.getoutput('ulimit -Sn')
+                nowhard = subprocess.getoutput('ulimit -Hn')
 
+            print("Softnow: %s Hardnow: %s" % (nowsoft, nowhard))
             # if getdistro == 'ubuntu':
             #    print("Host OS is Ubuntu")
             #    resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
