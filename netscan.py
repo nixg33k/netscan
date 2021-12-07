@@ -131,6 +131,7 @@ def OpenFileLimit():
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
             else:
                 print("Not CentOS!")
+                resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
                 softnow = subprocess.getoutput('ulimit -Sn 30000')
                 nowsoft = subprocess.getoutput('ulimit -Sn')
                 nowhard = subprocess.getoutput('ulimit -Hn')
@@ -338,7 +339,7 @@ def main():
     print()
     print("Total time: %f seconds" % atotaltime)
     print()
-    if soft < 30000:
+    if soft == 30000:
         print("reverting Open files to original setting %d" % soft)
         resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
     # print(subprocess.getoutput('ulimit -Sn'))
