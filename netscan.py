@@ -124,7 +124,7 @@ def OpenFileLimit():
             #
             # print(subprocess.getoutput('ulimit -Sn'))
             print("Current Open File settings - Soft: %s, Hard: %s" % (soft, hard))
-
+            print("Linux Distro: %s" % getdistro)
             if getdistro == 'centos':
                 print("Host OS is CentOS")
                 resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
