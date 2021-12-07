@@ -23,7 +23,13 @@ from netaddr import *
 from portscan import scan_ports
 from ipaddress import IPv4Address, IPv4Network
 
-global addr, netmask, cidr, allhosts
+global addr, netmask, cidr, allhosts, soft, hard, soft2, hard2, soft3, hard3
+soft = 0
+hard = 0
+soft2 = 0
+hard2 = 0
+soft3 = 0
+hard3 = 0
 
 
 # function to determine the class of an ipaddraddress
@@ -107,12 +113,12 @@ def CloseFile():
 
 
 def OpenFileLimit():
-    ulimitmax = subprocess.getoutput('ulimit -Sn')
-    nulimitmax = int(ulimitmax)
-    global soft, hard
     soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
-    print("Current Open File settings - Soft: %s, Hard: %s" % (soft, hard))
-    # print(soft,hard)
+
+    ulimitmax = soft
+    nulimitmax = int(ulimitmax)
+
+    print(soft, hard)
     # print(nulimitmax)
 
     if os.name.split()[0] == 'posix':
@@ -126,31 +132,19 @@ def OpenFileLimit():
             print("Current Open File settings - Soft: %s, Hard: %s" % (soft, hard))
             print("Linux Distro: %s" % getdistro)
             if getdistro == 'centos':
+                soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
                 print("Host OS is CentOS")
                 resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
             else:
                 print("Not CentOS!")
-                resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
-                softnow = subprocess.getoutput('ulimit -Sn 30000')
-                nowsoft = subprocess.getoutput('ulimit -Sn')
-                nowhard = subprocess.getoutput('ulimit -Hn')
+                soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
+                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
 
-            print("Softnow: %s Hardnow: %s" % (nowsoft, nowhard))
-            # if getdistro == 'ubuntu':
-            #    print("Host OS is Ubuntu")
-            #    resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
-            #    print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
-#           # else:
-#           #     resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+            soft2, hard2 = resource.getrlimit(resource.RLIMIT_OFILE)
+            print("Current Open File settings after change - Soft: %s, Hard: %s" % (soft2, hard2))
 
-
-            # subprocess.getoutput('ulimit -Sn')
-            # print('Please set open files too 30000.. ulimit -Sn 30000')
-            # os.popen("bash -c ulimit -Sn 30000")
-            # print(subprocess.getoutput('ulimit -Sn'))
             print()
-            # raise SystemExit()
 
 
 def GetIPAndHostName():
@@ -339,10 +333,30 @@ def main():
     print()
     print("Total time: %f seconds" % atotaltime)
     print()
-    if soft == 30000:
-        print("reverting Open files to original setting %d" % soft)
-        resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
-    # print(subprocess.getoutput('ulimit -Sn'))
+    getdistro = distro.id()
+    getdistro = getdistro.replace("'", "")
+
+    soft2, hard2 = resource.getrlimit(resource.RLIMIT_OFILE)
+
+    if getdistro == 'centos':
+        if soft2 == 30000:
+            print("reverting soft Open files to original setting %d" % soft)
+            resource.setrlimit(resource.RLIMIT_NOFILE, (soft, hard))
+        if hard2 == 30000:
+            print("reverting hard Open files to original setting %d" % hard)
+            resource.setrlimit(resource.RLIMIT_NOFILE, (soft, hard))
+
+    else:
+        if soft2 == 30000:
+            print("reverting soft Open files to original setting %d" % soft)
+            resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
+        if hard2 == 30000:
+            print("reverting hard Open files to original setting %d" % hard)
+            resource.setrlimit(resource.RLIMIT_OFILE, (soft, hard))
+
+        if soft2 == 30000 or hard2 == 30000:
+            soft3, hard3 = resource.getrlimit(resource.RLIMIT_OFILE)
+            print("Reverting Open File settings - Soft: %s, Hard: %s" % (soft3, hard3))
 
 
 main()
