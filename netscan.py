@@ -219,7 +219,7 @@ def get_address_in_network():
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sS -PE --min-rate 1000 --max-retries 1')
             # -sS required root
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sP -PE -vv --min-rate 1000 --max-retries 1')
-            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -vv --min-rate 1000 --max-parallelism 100 --max-retries 0')
+            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -vv --min-rate 1000 --max-parallelism 100  --max-rtt-timeout 200ms --max-retries 0')
 
             endtime = time.time()
             totaltime = endtime - starttime
