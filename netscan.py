@@ -129,14 +129,21 @@ def OpenFileLimit():
                 print("Host OS is CentOS")
                 resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
+            else:
+                subprocess.getoutput('ulimit -Sn 30000')
+                subprocess.getoutput('ulimit -Sn')
+                subprocess.getoutput('ulimit -Hn')
 
-            if getdistro == 'ubuntu':
-                print("Host OS is Ubuntu")
-                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
-                print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
-#            else:
-#                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
 
+            #if getdistro == 'ubuntu':
+            #    print("Host OS is Ubuntu")
+            #    resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+            #    print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
+#           # else:
+#           #     resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+
+
+            # subprocess.getoutput('ulimit -Sn')
             # print('Please set open files too 30000.. ulimit -Sn 30000')
             # os.popen("bash -c ulimit -Sn 30000")
             # print(subprocess.getoutput('ulimit -Sn'))
