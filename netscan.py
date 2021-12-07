@@ -134,8 +134,8 @@ def OpenFileLimit():
                 print("Host OS is Ubuntu")
                 resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
-            else:
-                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+#            else:
+#                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
 
             # print('Please set open files too 30000.. ulimit -Sn 30000')
             # os.popen("bash -c ulimit -Sn 30000")
