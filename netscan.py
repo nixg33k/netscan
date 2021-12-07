@@ -23,13 +23,7 @@ from netaddr import *
 from portscan import scan_ports
 from ipaddress import IPv4Address, IPv4Network
 
-global addr, netmask, cidr, allhosts, soft, hard, soft2, hard2, soft3, hard3
-soft = 0
-hard = 0
-soft2 = 0
-hard2 = 0
-soft3 = 0
-hard3 = 0
+global addr, netmask, cidr, allhosts
 
 
 # function to determine the class of an ipaddraddress
@@ -317,6 +311,7 @@ def chkargs2():
 def main():
     sys.excepthook = req_mods.ensure_enviroment_excepthook
     chkargs2()
+    global soft, hard
     soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
     astarttime = time.time()
     # chkmodules()
