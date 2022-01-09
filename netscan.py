@@ -17,7 +17,6 @@ import sys
 import time
 import distro
 
-
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
@@ -209,6 +208,8 @@ def get_address_in_network():
             ipaddr = [str(i) for i in ipaddr]
             seperate(ipaddr, networkClass)
 
+            print("IP Address: %s" % ipaddr)
+
             # print("Network is Class: %s" % theclass)
             print()
 
@@ -224,11 +225,9 @@ def get_address_in_network():
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
-            print(
-                '----------------------------------------------------------------------------------------------------------------')
+            print('----------------------------------------------------------------------------------------------------------------')
             print("%32s :: %16s :: %20s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
-            print(
-                '----------------------------------------------------------------------------------------------------------------')
+            print('----------------------------------------------------------------------------------------------------------------')
             print()
             for k, v in a['scan'].items():
                 if str(v['status']['state']) == 'up':
@@ -278,6 +277,7 @@ def get_address_in_network():
                     parser = argparse.ArgumentParser()
                     parser.add_argument('-p', action='store_true', help='scan ports')
                     parser.add_argument('-f', action='store_true', help='write output to a file')
+                    # parser.add_argument('eno1', action='store_true', help='eno1 nic specified.')
                     results = parser.parse_args()
 
                     if results.p:
@@ -297,8 +297,10 @@ def chkargs():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', action='store_true', help='scan ports')
     parser.add_argument('-f', action='store_true', help='write output to a file')
+    # parser.add_argument('eno1', action='store_true', help='eno1 nic specified.')
     results = parser.parse_args()
-    exit(0)
+    return results
+    # exit(0)
 
 
 def chkargs2():
@@ -357,4 +359,3 @@ def main():
 
 
 main()
-
