@@ -20,7 +20,7 @@ import distro
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
-from ipaddress import IPv4Address, IPv4Network
+
 
 global addr, netmask, cidr, allhosts
 
@@ -214,7 +214,6 @@ def get_address_in_network():
             print()
 
             nm = nmap.PortScanner()
-
             starttime = time.time()
 
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sS -PE --min-rate 1000 --max-retries 1')
