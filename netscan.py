@@ -21,7 +21,7 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
 
-global addr, netmask, cidr, allhosts
+global addr, netmask, cidr, allhosts, curip, ip
 
 
 # function to determine the class of an ipaddraddress
@@ -218,8 +218,9 @@ def get_address_in_network():
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sS -PE --min-rate 1000 --max-retries 1')
             # -sS required root
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sP -PE -vv --min-rate 1000 --max-retries 1')
-            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -vv --min-rate 1000 --max-parallelism 100  --max-rtt-timeout 200ms --max-retries 0')
-
+            # a = nm.scan(hosts=str(cidr), arguments='-T4 -n -A -sP -PE -vv --min-rate 1000 --max-parallelism 100  --max-rtt-timeout 200ms --max-retries 0')
+            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -v --max-retries 0')
+            # a = nm.scan(hosts=str(cidr), arguments='-T4 -n -R -sn -PE -v --min-rate 1000 --max-retries 1')
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
