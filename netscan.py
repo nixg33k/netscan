@@ -21,7 +21,6 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
 
-
 global addr, netmask, cidr, allhosts
 
 
