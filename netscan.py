@@ -105,12 +105,12 @@ def CloseFile():
 
 
 def OpenFileLimit():
-    soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
+    ssoft, hhard = resource.getrlimit(resource.RLIMIT_OFILE)
 
-    ulimitmax = soft
+    ulimitmax = ssoft
     nulimitmax = int(ulimitmax)
 
-    print(soft, hard)
+    print(ssoft, hhard)
     # print(nulimitmax)
 
     if os.name.split()[0] == 'posix':
@@ -122,17 +122,17 @@ def OpenFileLimit():
             #
 
             # print(subprocess.getoutput('ulimit -Sn'))
-            print("Current Open File settings - Soft: %s, Hard: %s" % (soft, hard))
+            print("Current Open File settings - Soft: %s, Hard: %s" % (ssoft, hhard))
             print("Linux Distro: %s" % getdistro)
             if getdistro == 'centos':
-                soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+                ssoft, hhard = resource.getrlimit(resource.RLIMIT_NOFILE)
                 print("Host OS is CentOS")
                 resource.setrlimit(resource.RLIMIT_NOFILE, (30000, 30000))
                 print("Open File now set to %s" % subprocess.getoutput('ulimit -Sn'))
             else:
                 print("Not CentOS!")
-                soft, hard = resource.getrlimit(resource.RLIMIT_OFILE)
-                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hard))
+                ssoft, hhard = resource.getrlimit(resource.RLIMIT_OFILE)
+                resource.setrlimit(resource.RLIMIT_OFILE, (30000, hhard))
 
             soft2, hard2 = resource.getrlimit(resource.RLIMIT_OFILE)
             print("Current Open File settings after change - Soft: %s, Hard: %s" % (soft2, hard2))
