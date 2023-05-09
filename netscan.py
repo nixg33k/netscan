@@ -16,10 +16,12 @@ import subprocess
 import sys
 import time
 import distro
+import dns
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from netaddr import *
 from portscan import scan_ports
+from dns import resolver, reversename
 
 global addr, netmask, cidr, allhosts, curip, ip
 
@@ -219,14 +221,15 @@ def get_address_in_network():
             # -sS required root
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -sP -PE -vv --min-rate 1000 --max-retries 1')
             # a = nm.scan(hosts=str(cidr), arguments='-T4 -n -A -sP -PE -vv --min-rate 1000 --max-parallelism 100  --max-rtt-timeout 200ms --max-retries 0')
-            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -v --max-retries 0')
-            # a = nm.scan(hosts=str(cidr), arguments='-T4 -n -R -sn -PE -v --min-rate 1000 --max-retries 1')
+            # a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -v --max-retries 0')
+            a = nm.scan(hosts=str(cidr), arguments='-T4 -sn -PE -vv --min-rate 1000 --max-parallelism 100  --max-rtt-timeout 200ms --max-retries 0')
+
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
-            print('----------------------------------------------------------------------------------------------------------------')
-            print("%32s :: %16s :: %20s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
-            print('----------------------------------------------------------------------------------------------------------------')
+            print('------------------------------------------------------------------------------------------------------------------------------------------------')
+            print("%64s :: %16s :: %20s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
+            print('------------------------------------------------------------------------------------------------------------------------------------------------')
             print()
             for k, v in a['scan'].items():
                 if str(v['status']['state']) == 'up':
@@ -240,7 +243,6 @@ def get_address_in_network():
                     ZipAddr = splitip
                     try:
                         name, alias, addresslist = socket.gethostbyaddr(ZipAddr)
-
                     except:
                         name = "-NULL-"
 
@@ -250,7 +252,7 @@ def get_address_in_network():
 
                     # print("zhost: %s" % zhost)
                     # print("v.hostname: %s" % v.hostname())
-
+                    # print(ZipAddr)
                     if len(name) == 0:
                         Znewzhost = 'NULL'
                     else:
@@ -272,7 +274,7 @@ def get_address_in_network():
                     else:
                         Znewzvendor2 = 'NULL'
 
-                    print("%32s :: %16s :: %20s :: %32s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
+                    print("%64s :: %16s :: %20s :: %32s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
                     parser = argparse.ArgumentParser()
                     parser.add_argument('-p', action='store_true', help='scan ports')
                     parser.add_argument('-f', action='store_true', help='write output to a file')
