@@ -175,6 +175,8 @@ def get_address_in_network():
     for iface in interfaces:
         if iface == 'lo':
             continue
+        if iface == 'docker0':
+            continue
 
         addresses = netifaces.ifaddresses(iface)
         #   print(addresses)
@@ -227,9 +229,9 @@ def get_address_in_network():
             endtime = time.time()
             totaltime = endtime - starttime
             n = 0
-            print('------------------------------------------------------------------------------------------------------------------------------------------------')
-            print("%64s :: %16s :: %20s :: %32s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
-            print('------------------------------------------------------------------------------------------------------------------------------------------------')
+            print('------------------------------------------------------------------------------------------------------------------------')
+            print("%48s :: %14s :: %16s :: %24s " % ("Hostname/FQDN", "IP Address", "Mac", "Vendor"))
+            print('------------------------------------------------------------------------------------------------------------------------')
             print()
             for k, v in a['scan'].items():
                 if str(v['status']['state']) == 'up':
@@ -239,7 +241,7 @@ def get_address_in_network():
                     splitip = str(v['addresses']['ipv4'])
                     splitvendor = str(v['vendor'])
                     zhost = str(splithost.split("'")[7:8])
-                    newzhost = re.sub('[\[\]\']', '', zhost)
+                    newzhost = re.sub(r"[\[\]\']", '', zhost)
                     ZipAddr = splitip
                     try:
                         name, alias, addresslist = socket.gethostbyaddr(ZipAddr)
@@ -261,8 +263,8 @@ def get_address_in_network():
                     # ZipAddr = splitip
                     zvendor1 = str(splitvendor.split("'")[1:2])
                     zvendor2 = str(splitvendor.split("'")[3:4])
-                    newzvendor1 = re.sub('[\[\]\'\{\}]', '', zvendor1)
-                    newzvendor2 = re.sub('[\[\]\'\{\}]', '', zvendor2)
+                    newzvendor1 = re.sub(r'[\[\]\'\{\}]', '', zvendor1)
+                    newzvendor2 = re.sub(r'[\[\]\'\{\}]', '', zvendor2)
 
                     if len(newzvendor1) != 0:
                         Znewzvendor1 = newzvendor1
@@ -274,7 +276,7 @@ def get_address_in_network():
                     else:
                         Znewzvendor2 = 'NULL'
 
-                    print("%64s :: %16s :: %20s :: %32s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
+                    print("%48s :: %14s :: %16s :: %24s" % (Znewzhost, ZipAddr, Znewzvendor1, Znewzvendor2))
                     parser = argparse.ArgumentParser()
                     parser.add_argument('-p', action='store_true', help='scan ports')
                     parser.add_argument('-f', action='store_true', help='write output to a file')
