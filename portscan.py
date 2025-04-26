@@ -1,86 +1,57 @@
-#!/usr/bin/env python3
-# This script runs on Python 3
 import socket
 import threading
-import time
-
 from datetime import datetime
+import time
+from concurrent.futures import ThreadPoolExecutor
 
-
-def TCP_connect(ip, port_number, delay, output):
-    TCPsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    TCPsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    TCPsock.settimeout(delay)
+def TCP_connect(ip, port_number, delay):
     try:
-        TCPsock.connect((ip, port_number))
-        output[port_number] = 'Listening'
-    except:
-        output[port_number] = ''
-
-    TCPsock.close()
-
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(delay)
+            result = sock.connect_ex((ip, port_number))
+            if result == 0:
+                return port_number, 'Listening'
+            else:
+                return port_number, ''
+    except Exception as e:
+        return port_number, str(e)
 
 def scan_ports(host_ip, delay):
     print()
-    threads = []  # To run TCP_connect concurrently
-    output = {}  # For printing purposes
     count = 0
-    # Check what time the scan started
+    ports = range(1000)  # Reduced from 10,000 to common ports
+    
     t1 = datetime.now()
-
     newt1 = time.time()
 
-    # Spawning threads to scan ports
-    for i in range(10000):
-        t = threading.Thread(target=TCP_connect, args=(host_ip, i, delay, output))
-        t.daemon = True
-        threads.append(t)
-
-    # Starting threads
-    for i in range(10000):
-        threads[i].start()
-
-    # Locking the script until all threads complete
-    for i in range(10000):
-        threads[i].join()
-
-    # Printing listening ports from small to large
-    for i in range(10000):
-        if output[i] == 'Listening':
-            print(str(i) + ': ' + str(output[i]))
-            count += 1
-
-    if count == 0:
-        print("No open ports")
-
-    print()
-    print('Count of ports open: %d - %s' % (count, str(host_ip)))
-    # Checking the time again
+    with ThreadPoolExecutor(max_workers=500) as executor:
+        futures = [executor.submit(TCP_connect, host_ip, port, delay) for port in ports]
+        
+        results = []
+        for future in futures:
+            try:
+                result = future.result(timeout=delay)
+                if result[1] == 'Listening':
+                    results.append(result)
+                    count += 1
+            except Exception as e:
+                pass
     t2 = datetime.now()
-
     newt2 = time.time()
     total = t2 - t1
 
-    # Calculates the difference of time, to see how long it took to run the script
-    # ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
-    ms = (total.days * 24 * 60 * 60 + total.seconds) * 1000 + total.microseconds / 1000.0
-
-    newtotal = newt2 - newt1
-
-    # Printing the information to screen
-
-    # print('Port Scanning Completed in: %s milliseconds(s)' % total)
-    print('Port Scanning Completed in: %f milliseconds(s)' % ms)
-    print('Port Scanning Completed in: %f second(s)' % newtotal)
-    print()
-    print("==================================================================================================================")
-
-
-def main():
-    host_ip = input("Enter host IP: ")
-    delay = int(input("How many seconds the socket is going to wait until timeout: "))
-    scan_ports(host_ip, delay)
-
+    ms = (newt2 - newt1) * 1000
+    print(f'Port Scanning Completed in: {ms:.2f} milliseconds')
+    
+    if not results:
+        print("No open ports")
+    else:
+        for port, status in sorted(results, key=lambda x: x[0]):
+            if status == 'Listening':
+                print(f"{port}: {status}")
+    print(f"Total ports found open: {count}")
 
 if __name__ == "__main__":
-    main()
+    host = input("Enter target IP or hostname: ")
+    delay = int(input("Enter timeout in seconds: "))
+    scan_ports(host, delay)
